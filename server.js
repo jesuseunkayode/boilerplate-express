@@ -7,16 +7,29 @@ var bGround = require("fcc-express-bground");
 var myApp = require("./myApp");
 var express = require("express");
 var app = express();
+require("dotenv").config();
 
 /*app.get("/", function (req, res) {
   res.send("Hello Express");
 });
-*/
+
 
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/views/index.html");
 });
 app.use("/public", express.static(__dirname + "/public"));
+*/
+app.get("/json", (req, res) => {
+  if (process.env.MESSAGE_STYLE === "uppercase") {
+    res.json({
+      message: "shello json".toUpperCase(),
+    });
+  } else {
+    res.json({
+      message: "HELLO json",
+    });
+  }
+});
 
 if (!process.env.DISABLE_XORIGIN) {
   app.use(function (req, res, next) {
